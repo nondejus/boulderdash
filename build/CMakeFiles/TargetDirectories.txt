@@ -1,0 +1,10 @@
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/install/strip.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/install/local.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/install.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/list_install_components.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/SDL2.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/rebuild_cache.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/SDL2main.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/uninstall.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/SDL2-static.dir
+/home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/build/CMakeFiles/edit_cache.dir

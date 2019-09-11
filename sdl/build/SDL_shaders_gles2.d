@@ -1,0 +1,22 @@
+build/SDL_shaders_gles2.lo: \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/src/render/opengles2/SDL_shaders_gles2.c \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/src/render/opengles2/../../SDL_internal.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/src/render/opengles2/../../dynapi/SDL_dynapi.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/src/render/opengles2/../../dynapi/SDL_dynapi_overrides.h \
+ include/SDL_config.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_platform.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/begin_code.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/close_code.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_video.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_stdinc.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_config.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_pixels.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_endian.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_rect.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_error.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_rwops.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_surface.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_blendmode.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_opengles2.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/src/render/opengles2/SDL_shaders_gles2.h \
+ /home/ismltpn/Belgeler/homeworks/cse102-s19/summer-project/SDL2-2.0.9/include/SDL_stdinc.h
