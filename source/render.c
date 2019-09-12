@@ -62,7 +62,7 @@ void render_number(SDL_Renderer * renderer, int num, Point c, int size, int len)
 }
 
 void render_block(Block *block, SDL_Renderer * renderer,int size, int anim, Direction p){
-  SDL_Texture * current;
+  SDL_Texture * current = NULL;
   SDL_Rect source,dest;
   int w,h;
   switch (block->type) {
@@ -136,7 +136,7 @@ int max_limit(int a, int max){
 }
 
 void draw_roi(Level * map,SDL_Renderer * renderer,int w, int h, int anim, Direction p, Point pPos){
-  Block ** roi;
+  Block ** roi = NULL;
   int i,j;
   roi=take_roi(map,max_limit(w/BLOCK_SIZE,map->width),max_limit(h/BLOCK_SIZE,map->height),pPos);
   for(i=0;i<max_limit(h/BLOCK_SIZE,map->height);i++){

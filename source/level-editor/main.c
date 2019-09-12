@@ -82,6 +82,14 @@ void str_add(char * s1, char * s2){
   s1[i+j]='\0';
 }
 
+void free_roi(Block ** roi,int h){
+  int i;
+  for(i=0;i<h;i++){
+    free(roi[i]);
+  }
+  free(roi);
+}
+
 void save(Level * level){
   int i,j;
   FILE * f;
@@ -118,6 +126,7 @@ void save(Level * level){
     }
   }
   fclose(f);
+  free_roi(level->blocks,level->height);
 }
 int max_limit(int a, int max){
   if(a>max) return max;

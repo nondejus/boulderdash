@@ -19,6 +19,7 @@ void intro(SDL_Window * window,SDL_Renderer * renderer){
               if(choice == 1) return;
               else{
                 theme = 3 - theme;
+                free_textures();
                 load_textures(renderer);
               }
               break;

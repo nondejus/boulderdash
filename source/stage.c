@@ -209,7 +209,7 @@ int game_update(Level * level,Point playerPos, int * score){
   Block ** map = level->blocks;
   int mapW = level->width;
   int mapH = level->height;
-  int count;
+  int count=0;
 
   /* Rocks' Update */
   find_blocks(map, &rocks, &count, rock, mapW,mapH);

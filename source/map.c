@@ -5,22 +5,16 @@
 #include "fundamentals.h"
 #include "blocks.h"
 int find_player(Level * level, Point * p);
-Level init_map();
 
 Level level_picker(int i){
   char name[64];
   sprintf(name,"level%d.bin",i);
   return load_from_file(name);
-  switch (i) {
-    case 1: return init_map();
-    //case ..
-    default: return init_map();
-  }
 }
 
 Level load_from_file(char * file_name){
   int i;
-  FILE * f;
+  FILE * f = NULL;
   Level level;
   f = fopen(file_name,"r");
   if(f==NULL) printf("Cannot open %s\n", file_name);
@@ -43,47 +37,6 @@ Level load_from_file(char * file_name){
   return level;
 }
 
-
-Level init_map(){
-  int i,j;
-  Level map;
-  Point pla;
-  pla.y=2;
-  pla.x=15;
-  map.playerStartPos=pla;
-  map.width=30;
-  map.height=20;
-  map.blocks=ALLOC(Block*,map.height);
-  for(i=0;i<map.height;i++){
-    map.blocks[i]=ALLOC(Block,map.width);
-  }
-  for(i=0;i<map.height;i++){
-    for(j=0;j<map.width;j++){
-      map.blocks[i][j].active=0;
-      map.blocks[i][j].type=empty;
-      map.blocks[i][j].pos.x=j;
-      map.blocks[i][j].pos.y=i;
-      if(i==0||j==0||i==19||j==29){
-        map.blocks[i][j].type=border;
-      }
-      else if(i==2||j==3){
-        map.blocks[i][j].type=diamond;
-      }
-      else if(i==1||j==1||i==4||j==5||i==6||j==7||j==9){
-        map.blocks[i][j].type=dirt;
-      }
-      else if(i==16||j==15||i==13||j==17){
-        map.blocks[i][j].type=rock;
-      }
-    }
-  }
-  map.blocks[8][11].type=rock;
-  map.blocks[12][11].type=empty;
-  map.blocks[13][1].type=spider;
-  map.blocks[5][3].type=monster;
-  return map;
-}
-
 int find_player(Level * level, Point * p){
   int i,j;
   for(i=0;i<level->height;i++){
@@ -99,7 +52,7 @@ int find_player(Level * level, Point * p){
 }
 
 Block ** take_roi(Level * map, int width, int height, Point p){
-  Block ** roi;
+  Block ** roi = NULL;
   int i,j;
 
   //SDL_Point p;

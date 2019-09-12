@@ -10,10 +10,10 @@
 #include "ends.h"
 int main(int argc, char * argv[]){
   int window_w = 600, window_h = 600;
-  SDL_Window *window;
-  SDL_Renderer * renderer;
+  SDL_Window *window = NULL;
+  SDL_Renderer * renderer = NULL;
   int currentLevel = 1;
-  int health=5;
+  int health=1;
   int score = 0;
   Level level;
   /* init */
@@ -34,7 +34,10 @@ int main(int argc, char * argv[]){
     prestage(window,renderer,score,currentLevel,health);
     level = level_picker(currentLevel);
     if(game(&level,&window_w,&window_h,health,&score,window,renderer) == -1) health --;
-    else currentLevel ++;
+    else{
+      free_roi(level.blocks,level.height);
+      currentLevel ++;
+    }
   }
 
   if(health<0){

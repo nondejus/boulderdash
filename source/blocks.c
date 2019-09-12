@@ -57,6 +57,5 @@ void find_blocks(Block ** map, Point ** blocks,int * size,block_t type, int mapW
       }
     }
   }
-  if(*blocks==NULL)(*blocks)=ALLOC(SDL_Point,1);
   *size=counter;
 }
