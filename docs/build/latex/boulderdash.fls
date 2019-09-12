@@ -1,0 +1,14 @@
+PWD /home/ismltpn/Belgeler/homeworks/cse102-s19/boulder-dash/docs/build/latex
+INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
+INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
+INPUT /home/ismltpn/.texlive2018/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT boulderdash.tex
+OUTPUT boulderdash.log
+INPUT sphinxmanual.cls
+INPUT sphinxmanual.cls
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty

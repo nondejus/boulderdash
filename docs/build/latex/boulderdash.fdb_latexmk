@@ -1,0 +1,16 @@
+# Fdb version 3
+["pdflatex"] 1568328531 "boulderdash.tex" "boulderdash.pdf" "boulderdash" 1568328550
+  "/home/ismltpn/.texlive2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1568328531 789641 6f63317165f09db69cbe67d4caa459a9 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty" 1553009392 5052 f2525dfd6e503dc383e90b568c6c9f02 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/report.cls" 1553009392 22882 dde2f6d94552c7d0da323ba0661350b5 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo" 1553009392 8294 b0f177401f895563eb19304d2389582d ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1553009379 33523 3a2c32bd77384f8f4508d61b4be83582 ""
+  "boulderdash.aux" 1568328531 8 a94a2480d3289e625eea47cd1b285758 ""
+  "boulderdash.tex" 1568328500 17580 52f3d4170957f4cc62a79d68d8cc716d ""
+  "c.sty" 0 -1 0 ""
+  "cmap.sty" 0 -1 0 ""
+  "docs1.sty" 0 -1 0 ""
+  "sphinxmanual.cls" 1566149607 3764 e7c0a8da02dc45450256dd4cfdafb426 ""
+  (generated)
+  "boulderdash.log"
+  "boulderdash.pdf"

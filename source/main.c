@@ -12,8 +12,8 @@ int main(){
   int window_w = 600, window_h = 600;
   SDL_Window *window = NULL;
   SDL_Renderer * renderer = NULL;
-  int currentLevel = 1;
-  int health=1;
+  int currentLevel = 10;
+  int health=5;
   int score = 0;
   Level level;
   /* init */
