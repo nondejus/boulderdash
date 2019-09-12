@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Scenes &#8212; Boulder Dash 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Audio" href="audio.html" />
+    <link rel="prev" title="Mobs" href="mobs.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="scenes">
+<h1>Scenes<a class="headerlink" href="#scenes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>There is nothing much. There are two sprites, cursor and background. When window size changes,
+background streches, cursors’ position is relative to window’s size so it does not change.</p>
+<p>The game has 2 themes, so there is a change theme option.</p>
+</div>
+<div class="section" id="pre-stage">
+<h2>Pre-Stage<a class="headerlink" href="#pre-stage" title="Permalink to this headline">¶</a></h2>
+<p>This is shown to user everytime before the stage, it shows current level, score
+and health. All components are relative to window size.</p>
+</div>
+<div class="section" id="stage">
+<h2>Stage<a class="headerlink" href="#stage" title="Permalink to this headline">¶</a></h2>
+<p>This is the only complex scene in game. It is the game session. It contains two main
+component sets, map and HUD. HUD is simple, on left there is a bar says how much diamond
+you need to collect to open the door, on right there are score bar and time bar shows
+you how much time left, on middle of the top there is a pause button and thats it.
+The map part shows a part of the all map near to player, every block takes 30px30p space,
+this is not changing, block sizes are fixed, when you change window size, it only effects
+how much block is shown on screen. Everytime a stage starts, it initializates audio device
+and sound and closing them when stage ends.</p>
+</div>
+<div class="section" id="end">
+<h2>End<a class="headerlink" href="#end" title="Permalink to this headline">¶</a></h2>
+<p>It says gameover and shows your final score. If you passed all levels it’s green,
+if you failed it’s red and thats it.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Boulder Dash</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="player.html">Controls, Game and Player Updates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobs.html">Mobs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#intro">Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pre-stage">Pre-Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stage">Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#end">End</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textures.html">Textures and Rendering</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="mobs.html" title="previous chapter">Mobs</a></li>
+      <li>Next: <a href="audio.html" title="next chapter">Audio</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, İsmail Tapan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/scenes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

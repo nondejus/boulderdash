@@ -139,14 +139,6 @@ void sound_update(Sound * sound, double timer,double *soundCounter){
     }
   }
 }
-
-void synth_sin_callback(void *data, Uint8 *buffer, int length){
-    Sound *sound = (Sound *)(data);
-    for(int i = 0; i < length; ++i){
-        buffer[i] = (sin(sound->samplePos / sound->samplesPerSine) + 1)*AMPLITUDE;
-        ++sound->samplePos;
-    }
-}
 void synth_triangle_callback(void *data, Uint8 *buffer, int length){
     Sound *sound = (Sound *)(data);
     for(int i = 0; i < length; ++i){

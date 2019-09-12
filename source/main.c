@@ -8,7 +8,7 @@
 #include "prestage.h"
 #include "stage.h"
 #include "ends.h"
-int main(int argc, char * argv[]){
+int main(){
   int window_w = 600, window_h = 600;
   SDL_Window *window = NULL;
   SDL_Renderer * renderer = NULL;

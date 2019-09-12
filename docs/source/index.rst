@@ -1,0 +1,41 @@
+.. Boulder Dash documentation master file, created by
+   sphinx-quickstart on Thu Sep 12 21:34:25 2019.
+
+.. role:: bash(code)
+  :language: bash
+
+Welcome to Boulder Dash's documentation
+=======================================
+
+Boulder dash is a well-known video game. In this project, i replicated the game.
+
+This project contains two main program
+
+* 1- Game
+* 2- Level Editor/Creator
+
+| To build the game, type :bash:`make` in command line on root folder.
+| To build the level editor, type :bash:`make level` in command line on root folder.
+|
+| After building,
+| To open the game, run :bash:`run-game.sh`.
+| To open the level editor, run :bash:`run-level.sh`.
+
+Requirements
+############
+* Make
+* Gcc
+
+You don't need any other file or program to run this code, you don't need any library installed on your sistem.
+
+Better Understanding Of Source
+==============================
+.. toctree::
+   :maxdepth: 1
+
+   player
+   mobs
+   scenes
+   audio
+   textures
+   level
