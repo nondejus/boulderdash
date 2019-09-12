@@ -2,7 +2,8 @@
 #define BLOCK_H
 #include <SDL2/SDL.h>
 #include "fundamentals.h"
-
+void activate(Block ** map, Point pos);
+void deactivate(Block ** map, Point pos);
 void set_block(Block ** map, Point pos, block_t block);
 void set_block_xy(Block ** map, int x, int y, block_t block);
 block_t get_block(Block ** map, Point pos);

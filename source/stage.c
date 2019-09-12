@@ -29,7 +29,7 @@ int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCo
 int game_update(Level * level, Point playerPos, int * score);
 void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_Window *window, int * state);
 Direction rock_fall_direction(Block **map, Point p);
-void take_move_direction(KeyStates * keys, Direction * moveDir);
+void take_move_direction(KeyStates * keys, Direction * moveDir, int active);
 void water_update(Level * level);
 
 int game(Level * level, int * width, int * height, int health, int * score, SDL_Window * window, SDL_Renderer * renderer){
@@ -42,7 +42,6 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   SDL_Event e;
 
   //SDL_AudioSpec aud_wav_spec;
-
   SDL_AudioSpec want;
   SDL_AudioSpec have;
   SDL_AudioDeviceID device;
@@ -53,6 +52,7 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   int diamonds = 0;
   int state = RUNNING;
   Direction moveDirection;
+  int playerActive;
 
   //time fps
   const double updateStep = 0.15;
@@ -119,8 +119,10 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
     frameStart = SDL_GetPerformanceCounter();
 
     /* Events */
+    playerActive = map[playerPos.y][playerPos.x].active;
     event_handler(&e,&keys,width,height,window,&state);
-    take_move_direction(&keys,&moveDirection);
+    take_move_direction(&keys,&moveDirection,playerActive);
+
     if(state==RUNNING){
       // printf("Keys: l:%d r:%d u:%d d:%d\n", keys.l, keys.r, keys.u, keys.d);
       // printf("Move: %d\n", moveDirection);
@@ -208,7 +210,7 @@ int game_update(Level * level,Point playerPos, int * score){
   for (i = 0; i < count; i++){
     if (map[rocks[i].y][rocks[i].x].active == 1){
       if(rock_fall_direction(map,rocks[i])==_none){
-        level->blocks[rocks[i].y][rocks[i].x].active = 0;
+        deactivate(level->blocks,rocks[i]);
       }
       else if(rock_fall_direction(map,rocks[i])==_down){
         switch (get_side(map,rocks[i],_down)){
@@ -238,7 +240,7 @@ int game_update(Level * level,Point playerPos, int * score){
     else{
       if (rock_fall_direction(map, rocks[i]) != _none)
         if (get_side(map, rocks[i], _down) != player)
-          level->blocks[rocks[i].y][rocks[i].x].active = 1;
+          activate(level->blocks,rocks[i]);
     }
   }
   if(rocks!=NULL) free(rocks);
@@ -303,12 +305,16 @@ Direction rock_fall_direction(Block **map, Point p){
 }
 int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCount, int * score){
   Point newPos = side_pos(*playerPos,moveDir);
-  if(moveDir==_none) return 1;
+  if(moveDir==_none){
+    deactivate(map,*playerPos);
+    return RUNNING;
+  }
   switch (get_block(map,newPos)) {
     case diamond:
       set_block(map,newPos,player);
       set_block(map,*playerPos,empty);
       *playerPos=newPos;
+      activate(map,newPos);
       (*diaCount)+=1;
       *score += DIAMOND_SCORE;
       return RUNNING;
@@ -316,19 +322,22 @@ int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCo
       set_block(map,newPos,player);
       set_block(map,*playerPos,empty);
       *playerPos=newPos;
+      activate(map,newPos);
       return RUNNING;
     case dirt:
       set_block(map,newPos,player);
       set_block(map,*playerPos,empty);
       *playerPos=newPos;
+      activate(map,newPos);
       return RUNNING;
     case rock:
       if(moveDir==_left || moveDir==_right){
         if(get_side(map,newPos,moveDir)==empty){
-          map[newPos.y][newPos.x].active=1;
+          activate(map,newPos);
           block_move(map,newPos,moveDir);
           set_block(map,newPos,player);
           set_block(map,*playerPos,empty);
+          activate(map,newPos);
           *playerPos=newPos;
           return RUNNING;
         }
@@ -337,15 +346,20 @@ int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCo
       return RUNNING;
     case monster:
       set_block(map,*playerPos,empty);
+      deactivate(map,*playerPos);
       return GAMEOVER;
     case spider:
       set_block(map,*playerPos,empty);
+      deactivate(map,*playerPos);
       return GAMEOVER;
     case door:
       set_block(map,*playerPos,empty);
       set_block(map,newPos,player);
+      deactivate(map,*playerPos);
       return PASSED;
-    default: return RUNNING;
+    default:
+      deactivate(map,*playerPos);
+      return RUNNING;
   }
 }
 void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_Window *window, int * state){
@@ -376,9 +390,12 @@ void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_
   }
   SDL_GetWindowSize(window,win_w,win_h);
 }
-void take_move_direction(KeyStates * keys, Direction * moveDir){
+void take_move_direction(KeyStates * keys, Direction * moveDir, int active){
   if(keys->u == keys->d){
-    if(keys->l == keys->r) return;
+    if(keys->l == keys->r){
+      if(active) *moveDir=_none;
+      return;
+    }
     else if(keys->l == 1) *moveDir=_left;
     else *moveDir=_right;
   }

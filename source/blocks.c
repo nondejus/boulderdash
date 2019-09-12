@@ -2,6 +2,12 @@
 #include "fundamentals.h"
 #include "blocks.h"
 
+void activate(Block ** map, Point pos){
+  map[pos.y][pos.x].active=1;
+}
+void deactivate(Block ** map, Point pos){
+  map[pos.y][pos.x].active=0;
+}
 void set_block(Block ** map, Point pos, block_t block){
   map[pos.y][pos.x].type=block;
 }
