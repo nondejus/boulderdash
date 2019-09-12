@@ -140,15 +140,33 @@ void create_diamonds(Block **map, Point coords, block_t t, int mapW, int mapH){
   switch (t){
     case monster:
       if (c.y < mapH - 3 && c.y > 2 && c.x < mapW - 3 && c.x > 2){
-        if (get_block_xy(map,c.x,c.y-2)==dirt)
+        if (get_block_xy(map,c.x,c.y-2)!=border && get_block_xy(map,c.x,c.y-2)!=player)
           set_block_xy(map,c.x,c.y-2,diamond);
-        if (get_block_xy(map,c.x,c.y+2)==dirt)
+        if (get_block_xy(map,c.x,c.y+2)!=border && get_block_xy(map,c.x,c.y+2)!=player)
           set_block_xy(map,c.x,c.y+2,diamond);
-        if (get_block_xy(map,c.x-2,c.y)==dirt)
+        if (get_block_xy(map,c.x-2,c.y)!=border && get_block_xy(map,c.x-2,c.y)!=player)
           set_block_xy(map,c.x-2,c.y,diamond);
-        if (get_block_xy(map,c.x+2,c.y)==dirt)
+        if (get_block_xy(map,c.x+2,c.y)!=border && get_block_xy(map,c.x+2,c.y)!=player)
           set_block_xy(map,c.x+2,c.y,diamond);
+
+        if (get_block_xy(map,c.x,c.y-1)!=border && get_block_xy(map,c.x,c.y-1)!=player)
+          set_block_xy(map,c.x,c.y-1,diamond);
+        if (get_block_xy(map,c.x,c.y+1)!=border && get_block_xy(map,c.x+2,c.y+1)!=player)
+          set_block_xy(map,c.x,c.y+1,diamond);
+        if (get_block_xy(map,c.x-1,c.y)!=border && get_block_xy(map,c.x-1,c.y)!=player)
+          set_block_xy(map,c.x-1,c.y,diamond);
+        if (get_block_xy(map,c.x+1,c.y)!=border && get_block_xy(map,c.x+1,c.y)!=player)
+          set_block_xy(map,c.x+1,c.y,diamond);
+        if (get_block_xy(map,c.x-1,c.y-1)!=border && get_block_xy(map,c.x-1,c.y-1)!=player)
+          set_block_xy(map,c.x-1,c.y-1,diamond);
+        if (get_block_xy(map,c.x+1,c.y-1)!=border && get_block_xy(map,c.x+1,c.y-1)!=player)
+          set_block_xy(map,c.x+1,c.y-1,diamond);
+        if (get_block_xy(map,c.x-1,c.y+1)!=border && get_block_xy(map,c.x-1,c.y+1)!=player)
+          set_block_xy(map,c.x-1,c.y+1,diamond);
+        if (get_block_xy(map,c.x+1,c.y+1)!=border && get_block_xy(map,c.x+1,c.y+1)!=player)
+          set_block_xy(map,c.x+1,c.y+1,diamond);
       }
+      break;
     case spider:
       if (get_block_xy(map,c.x,c.y-1)==dirt)
         set_block_xy(map,c.x,c.y-1,diamond);

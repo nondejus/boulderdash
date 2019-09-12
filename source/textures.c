@@ -47,7 +47,7 @@ void load_textures(SDL_Renderer * renderer){
       sGameover = SDL_LoadBMP("assets/1_gameover.bmp");
       sStart = SDL_LoadBMP("assets/1_start.bmp");
       sHeart = SDL_LoadBMP("assets/1_heart.bmp");
-      sPaused = SDL_LoadBMP("assets/1_paused.bmp");
+      sPaused = SDL_LoadBMP("assets/1_pause.bmp");
       sLevel = SDL_LoadBMP("assets/1_level.bmp");
       sClock = SDL_LoadBMP("assets/1_clock.bmp");
       sArrow = SDL_LoadBMP("assets/1_cursor.bmp");
@@ -74,7 +74,7 @@ void load_textures(SDL_Renderer * renderer){
       sGameover = SDL_LoadBMP("assets/3_gameover.bmp");
       sStart = SDL_LoadBMP("assets/3_start.bmp");
       sHeart = SDL_LoadBMP("assets/3_heart.bmp");
-      sPaused = SDL_LoadBMP("assets/3_paused.bmp");
+      sPaused = SDL_LoadBMP("assets/3_pause.bmp");
       sLevel = SDL_LoadBMP("assets/3_level.bmp");
       sClock = SDL_LoadBMP("assets/3_clock.bmp");
       sArrow = SDL_LoadBMP("assets/3_cursor.bmp");

@@ -9,16 +9,20 @@
 #define BOTTOM_BLOCK_SIZE 50
 #define PLAYER_START_X 3
 #define PLAYER_START_Y 3
-#define DOOR_X 9
-#define DOOR_Y 9
+#define DOOR_X 1
+#define DOOR_Y 1
+
+void str_add(char * s1, char * s2);
+
 Level load_from_file(){
-  int i,j;
+  int i;
   FILE * f;
   char file_name[64];
   Level level;
   do{
     printf("File name:");
     scanf("%s", file_name);
+    str_add(file_name,".bin");
     f = fopen(file_name,"r");
     if(f==NULL) printf("Cannot open %s\n", file_name);
   }while(f==NULL);
@@ -40,29 +44,33 @@ Level load_from_file(){
   fclose(f);
   return level;
 }
-void render_number_left(SDL_Renderer * renderer, int num, Point c, int size){
-  int len;
-  SDL_Rect rect;
+void render_number(SDL_Renderer * renderer, int num, Point c, int size, int len){
+  int i,w,h;
+  SDL_Rect source,dest;
   char text[100];
-  sprintf(text,"%d",num);
-  for(len=0;text[len+1]!='\0';len++);
-  for(;len>=0;len--){
-    rect.h=size;
-    rect.w=size/2;
-    rect.x=c.x*size+len*size+size/4;
-    rect.y=(c.y+1)*size;
-    switch (text[len]) {
-      case '1': SDL_RenderCopy(renderer,t1,NULL,&rect); break;
-      case '2': SDL_RenderCopy(renderer,t2,NULL,&rect); break;
-      case '3': SDL_RenderCopy(renderer,t3,NULL,&rect); break;
-      case '4': SDL_RenderCopy(renderer,t4,NULL,&rect); break;
-      case '5': SDL_RenderCopy(renderer,t5,NULL,&rect); break;
-      case '6': SDL_RenderCopy(renderer,t6,NULL,&rect); break;
-      case '7': SDL_RenderCopy(renderer,t7,NULL,&rect); break;
-      case '8': SDL_RenderCopy(renderer,t8,NULL,&rect); break;
-      case '9': SDL_RenderCopy(renderer,t9,NULL,&rect); break;
-      case '0': SDL_RenderCopy(renderer,t0,NULL,&rect); break;
+  SDL_QueryTexture(tDigits,NULL,NULL,&w,&h);
+  sprintf(text,"%0*d",len,num);
+  for(i=0;i<len;i++){
+    dest.h=size;
+    dest.w=size;
+    dest.x=(c.x+i)*size;
+    dest.y=(c.y+1)*size;
+    source.y=0;
+    source.w=w/10;
+    source.h=h;
+    switch (text[i]) {
+      case '1': source.x=source.w; break;
+      case '2': source.x=source.w*2; break;
+      case '3': source.x=source.w*3; break;
+      case '4': source.x=source.w*4; break;
+      case '5': source.x=source.w*5; break;
+      case '6': source.x=source.w*6; break;
+      case '7': source.x=source.w*7; break;
+      case '8': source.x=source.w*8; break;
+      case '9': source.x=source.w*9; break;
+      case '0': source.x=0; break;
     }
+    SDL_RenderCopy(renderer,tDigits,&source,&dest);
   }
 }
 void str_add(char * s1, char * s2){
@@ -121,17 +129,14 @@ int min_limit(int a, int min){
 }
 
 void try_to_change(Level * level, Point mouse, block_t t,Point startPos,Point startIndex){
-
   if(mouse.x>startPos.x&&mouse.x<startPos.x+BLOCK_SIZE*max_limit(level->width,MAX_WIDTH)){
     if(mouse.y>startPos.y&&mouse.y<startPos.y+BLOCK_SIZE*max_limit(level->height,MAX_HEIGHT)){
       mouse.x-=startPos.x;
       mouse.y-=startPos.y;
       mouse.x=mouse.x/BLOCK_SIZE;
       mouse.y=mouse.y/BLOCK_SIZE;
-      printf("Mouse\tx:%d\ty:%d\t", mouse.x,mouse.y);
       mouse.x+=startIndex.x;
       mouse.y+=startIndex.y;
-      printf("new x:%d\ty:%d\n", mouse.x,mouse.y);
       if(mouse.x!=0&&mouse.y!=0&&mouse.x!=level->width-1&&level->height-1){
         switch (t) {
           case player:
@@ -168,29 +173,80 @@ void move_roi(Level * level, Point * p, Direction d){
     case _up:    p->y=min_limit(p->y-s,0); return;
     case _right: p->x=max_limit(p->x+s,level->width-MAX_WIDTH); return;
     case _down:  p->y=max_limit(p->y+s,level->height-MAX_HEIGHT); return;
+    default: return;
   }
 }
-
 void render_block(Block *block, SDL_Renderer * renderer,int size,Point startPos, Point startIndex){
   SDL_Texture * current;
-  SDL_Rect rect;
+  SDL_Rect source,dest;
+  int w,h;
+  Direction p = _none;
+  int anim = 1;
   switch (block->type) {
-    case border: current = tBorder; break;
-    case empty: current = tEmpty; break;
-    case player: current = tPlayer; break;
-    case spider: current = tSpider; break;
-    case diamond: current = tDiamond; break;
-    case monster: current = tMonster; break;
-    case rock: current = tRock; break;
-    case dirt: current = tDirt; break;
-    case water: current = tWater; break;
-    case door: current = tDoor; break;
+    case border:
+     current = tBorder; break;
+    case empty:
+     current = tEmpty; break;
+    case player:
+     current = tPlayer; break;
+    case spider:
+     current = tSpider; break;
+    case diamond:
+     current = tDiamond; break;
+    case monster:
+     current = tMonster; break;
+    case rock:
+     current = tRock; break;
+    case dirt:
+     current = tDirt; break;
+    case water:
+     current = tWater; break;
+    case door:
+     current = tDoor; break;
     default: current = tDirt; break;
   }
-  rect=point_to_rect(block->pos,size);
-  rect.x+=startPos.x-startIndex.x*BLOCK_SIZE;
-  rect.y+=startPos.y-startIndex.y*BLOCK_SIZE;
-  SDL_RenderCopy(renderer,current,NULL,&rect);
+  dest=point_to_rect(block->pos,size);
+  dest.x+=startPos.x-startIndex.x*BLOCK_SIZE;
+  dest.y+=startPos.y-startIndex.y*BLOCK_SIZE;
+  if(block->type==rock && block->active==0) current=tRock2;
+  if(block->type==door || block->type==monster || block->type==rock || block->type==spider || block->type==water || block->type==diamond){
+    SDL_QueryTexture(current,NULL,NULL,&w,&h);
+    source.w=w/4;
+    source.h=h;
+    source.y=0;
+    switch (anim) {
+      case 0: source.x=0; break;
+      case 1: source.x=source.w; break;
+      case 2: source.x=source.w*2; break;
+      case 3: source.x=source.w*3; break;
+      default: break;
+    }
+    SDL_RenderCopy(renderer,current,&source,&dest);
+  }
+  else if(block->type==player){
+    SDL_QueryTexture(current,NULL,NULL,&w,&h);
+    source.w=w/4;
+    source.h=h/4;
+    switch (anim) {
+      case 0: source.x=0; break;
+      case 1: source.x=source.w; break;
+      case 2: source.x=source.w*2; break;
+      case 3: source.x=source.w*3; break;
+      default: break;
+    }
+    switch (p) {
+      case _left: source.y=0; break;
+      case _right: source.y=source.h; break;
+      case _down: source.y=source.h*2; break;
+      case _up: source.y=source.h*3; break;
+      case _none:
+        current=tPlayer2;
+        SDL_RenderCopy(renderer,current,NULL,&dest);
+        return;
+    }
+    SDL_RenderCopy(renderer,current,&source,&dest);
+  }
+  else SDL_RenderCopy(renderer,current,NULL,&dest);
 }
 void draw_map(Level * map,SDL_Renderer * renderer,Point startPos, Point startIndex){
   Block ** roi = map->blocks;
@@ -259,6 +315,7 @@ int main(){
   Block selected;
   Point selectedPos;
   char isEdit;
+  theme = 1;
   printf("Do you want to edit an existing level?");
   do{
     printf("(y/n)");
@@ -283,7 +340,7 @@ int main(){
   renderer= SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
   SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
   SDL_SetRenderDrawColor(renderer,0,0,0,255);
-  load_textures(renderer,2);
+  load_textures(renderer);
 
   if(level.width<=MAX_WIDTH){
     mapStartPos.x=(MAX_WIDTH-level.width)*BLOCK_SIZE/2;
@@ -311,7 +368,6 @@ int main(){
   for(i=0;i<10;i++){
     bottomBlocks[i].pos.x=i;
     bottomBlocks[i].pos.y=(window_h-70)/BOTTOM_BLOCK_SIZE;
-    printf("i: %d\tx: %d\ty: %d\n", i,i*BOTTOM_BLOCK_SIZE,(window_h-100)/BOTTOM_BLOCK_SIZE+10);
   }
 
   saveRect.x=window_w-225;
@@ -384,8 +440,8 @@ int main(){
     draw_grid(&level,renderer,mapStartPos);
     for(i=0;i<10;i++){
       if(i==0)
-        render_number_left(renderer,i,bottomBlocks[9].pos,BOTTOM_BLOCK_SIZE);
-      else render_number_left(renderer,i,bottomBlocks[i-1].pos,BOTTOM_BLOCK_SIZE);
+        render_number(renderer,i,bottomBlocks[9].pos,BOTTOM_BLOCK_SIZE,1);
+      else render_number(renderer,i,bottomBlocks[i-1].pos,BOTTOM_BLOCK_SIZE,1);
       render_block(&bottomBlocks[i],renderer,BOTTOM_BLOCK_SIZE,zeroPoint,zeroPoint);
     }
 

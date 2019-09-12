@@ -18,16 +18,14 @@
 #define DIAMOND_SCORE 50
 #define MONSTER_SCORE 200
 
-
 typedef struct{
   int l,r,d,u;
 }KeyStates;
 
-
 void show_door(Level * level);
 int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCount, int * score);
 int game_update(Level * level, Point playerPos, int * score);
-void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_Window *window, int * state);
+void event_handler(SDL_Event *e, KeyStates * keys, int * winW, int * winH,SDL_Window *window, int * state);
 Direction rock_fall_direction(Block **map, Point p);
 void take_move_direction(KeyStates * keys, Direction * moveDir, int active);
 void water_update(Level * level);
@@ -76,6 +74,8 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   SDL_Rect scoreRect;
   SDL_Rect timeRect;
   SDL_Rect diamondRect;
+  SDL_Rect pauseSmall;
+  SDL_Rect pauseBig;
 
   /* setting up audio and sound */
   init_sound(&sound);
@@ -108,6 +108,9 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   diamondPos.x=20;
   diamondPos.y=7;
   diamondRect=create_rect_xy(10,3,60,24);
+
+  pauseSmall=create_rect_xy(*width/2-15,7,30,30);
+  pauseBig=create_rect_xy(*width/2-50,*height/2-50,100,100);
 
   /* preparing map */
   set_block(map,playerPos,player);
@@ -162,6 +165,7 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
       sound.speed=get_speed(STOCK_BPM*1.1);
     }
     sound_update(&sound,timer,&soundCounter);
+    if(state==PAUSED) sound.samplesPerSine=0;
 
     /* Animations Update */
     if(timer>animationCounter){
@@ -174,12 +178,14 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
 
     SDL_RenderClear(renderer);
     draw_roi(level,renderer,*width,*height,currentAnim,playerAnim,playerPos);
+    SDL_RenderCopy(renderer,tPaused,NULL,&pauseSmall);
     SDL_RenderCopy(renderer,tBack,NULL,&scoreRect);
     render_number(renderer,*score,scorePos,18,6);
     SDL_RenderCopy(renderer,tBack,NULL,&timeRect);
     render_number(renderer,(int)level->time-timer,timePos,18,3);
     SDL_RenderCopy(renderer,tBack,NULL,&diamondRect);
     render_number(renderer,level->diamondsRequired-diamonds>0?level->diamondsRequired-diamonds:0,diamondPos,18,2);
+    if(state==PAUSED) SDL_RenderCopy(renderer,tPaused,NULL,&pauseBig);
     SDL_RenderPresent(renderer);
 
     if(state==GAMEOVER) SDL_Delay(1000);
@@ -362,7 +368,8 @@ int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCo
       return RUNNING;
   }
 }
-void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_Window *window, int * state){
+void event_handler(SDL_Event *e, KeyStates * keys, int * winW, int * winH,SDL_Window *window, int * state){
+  Point mousePos;
   if ( SDL_PollEvent( e )){
     switch (e->type){
       case SDL_KEYDOWN:
@@ -385,10 +392,23 @@ void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_
           case SDLK_DOWN: if(keys->d==1) keys->d = 0;break;
         }
         break;
+      case SDL_MOUSEBUTTONDOWN:
+        SDL_GetMouseState(&mousePos.x, &mousePos.y);
+        if(mousePos.y>0 && mousePos.y<45 && mousePos.x>*winW/2-20 && mousePos.x<*winW/2+20){
+          if(*state==RUNNING) *state=PAUSED;
+          else *state=RUNNING;
+        }
+        else if(mousePos.y>*winH/2-50 && mousePos.y<*winH/2+50 && mousePos.x>*winW/2-50 && mousePos.x<*winW/2+50)
+          *state=RUNNING;
+        break;
+      case SDL_WINDOWEVENT:
+        if(e->window.event==SDL_WINDOWEVENT_FOCUS_LOST)
+          *state=PAUSED;
+        break;
       case SDL_QUIT: exit(0); break;
     }
   }
-  SDL_GetWindowSize(window,win_w,win_h);
+  SDL_GetWindowSize(window,winW,winH);
 }
 void take_move_direction(KeyStates * keys, Direction * moveDir, int active){
   if(keys->u == keys->d){
