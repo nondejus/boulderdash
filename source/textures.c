@@ -10,6 +10,7 @@ void load_textures(SDL_Renderer * renderer){
   SDL_Surface * sPlayer = NULL;
   SDL_Surface * sPlayer2 = NULL;
   SDL_Surface * sRock = NULL;
+  SDL_Surface * sRock2 = NULL;
   SDL_Surface * sSpider = NULL;
   SDL_Surface * sWater = NULL;
   SDL_Surface * sDoor = NULL;
@@ -37,6 +38,7 @@ void load_textures(SDL_Renderer * renderer){
       sPlayer = SDL_LoadBMP("assets/1_player.bmp");
       sPlayer2 = SDL_LoadBMP("assets/1_player2.bmp");
       sRock = SDL_LoadBMP("assets/1_rock.bmp");
+      sRock2 = SDL_LoadBMP("assets/1_rock2.bmp");
       sSpider = SDL_LoadBMP("assets/1_spider.bmp");
       sWater = SDL_LoadBMP("assets/1_water.bmp");
       sDoor = SDL_LoadBMP("assets/1_door.bmp");
@@ -63,6 +65,7 @@ void load_textures(SDL_Renderer * renderer){
       sPlayer2 = SDL_LoadBMP("assets/3_player2.bmp");
       sPlayer = SDL_LoadBMP("assets/3_player.bmp");
       sRock = SDL_LoadBMP("assets/3_rock.bmp");
+      sRock2 = SDL_LoadBMP("assets/3_rock2.bmp");
       sSpider = SDL_LoadBMP("assets/3_spider.bmp");
       sWater = SDL_LoadBMP("assets/3_water.bmp");
       sDoor = SDL_LoadBMP("assets/3_door.bmp");
@@ -74,7 +77,7 @@ void load_textures(SDL_Renderer * renderer){
       sPaused = SDL_LoadBMP("assets/3_paused.bmp");
       sLevel = SDL_LoadBMP("assets/3_level.bmp");
       sClock = SDL_LoadBMP("assets/3_clock.bmp");
-      sArrow = SDL_LoadBMP("assets/3_arrow.bmp");
+      sArrow = SDL_LoadBMP("assets/3_cursor.bmp");
       sIntro = SDL_LoadBMP("assets/3_intro.bmp");
       sBack = SDL_LoadBMP("assets/3_back.bmp");
       sWin = SDL_LoadBMP("assets/3_win.bmp");
@@ -89,6 +92,7 @@ void load_textures(SDL_Renderer * renderer){
   tPlayer = SDL_CreateTextureFromSurface(renderer,sPlayer);
   tPlayer2 = SDL_CreateTextureFromSurface(renderer,sPlayer2);
   tRock = SDL_CreateTextureFromSurface(renderer,sRock);
+  tRock2 = SDL_CreateTextureFromSurface(renderer,sRock2);
   tSpider = SDL_CreateTextureFromSurface(renderer,sSpider);
   tWater = SDL_CreateTextureFromSurface(renderer,sWater);
   tDoor = SDL_CreateTextureFromSurface(renderer,sDoor);
@@ -114,6 +118,7 @@ void load_textures(SDL_Renderer * renderer){
   SDL_FreeSurface(sPlayer);
   SDL_FreeSurface(sPlayer2);
   SDL_FreeSurface(sRock);
+  SDL_FreeSurface(sRock2);
   SDL_FreeSurface(sSpider);
   SDL_FreeSurface(sWater);
   SDL_FreeSurface(sDoor);
@@ -140,6 +145,7 @@ void free_textures(){
   SDL_DestroyTexture(tPlayer);
   SDL_DestroyTexture(tPlayer2);
   SDL_DestroyTexture(tRock);
+  SDL_DestroyTexture(tRock2);
   SDL_DestroyTexture(tSpider);
   SDL_DestroyTexture(tWater);
   SDL_DestroyTexture(tDoor);

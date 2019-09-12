@@ -98,16 +98,17 @@ int find_player(Level * level, Point * p){
   return -1;
 }
 
-Block ** take_roi(Level * map, int width, int height){
+Block ** take_roi(Level * map, int width, int height, Point p){
   Block ** roi;
   int i,j;
-  SDL_Point p;
+
+  //SDL_Point p;
   int start_i,start_j;
   roi=ALLOC(Block*,height);
   for(i=0;i<height;i++){
     roi[i]=ALLOC(Block,width);
   }
-  if(find_player(map,&p)!=-1){
+  //if(find_player(map,&p)!=-1){
     for(i=0;i<height;i++){
       for(j=0;j<width;j++){
 
@@ -134,7 +135,7 @@ Block ** take_roi(Level * map, int width, int height){
         roi[i][j].pos.x-=start_j;
         roi[i][j].pos.y-=start_i;
       }
-    }
+  //  }
   }
   return roi;
 }

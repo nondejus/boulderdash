@@ -89,6 +89,7 @@ void render_block(Block *block, SDL_Renderer * renderer,int size, int anim, Dire
     default: current = tDirt; break;
   }
   dest=point_to_rect(block->pos,size);
+  if(block->type==rock && block->active==0) current=tRock2;
   if(block->type==door || block->type==monster || block->type==rock || block->type==spider || block->type==water || block->type==diamond){
     SDL_QueryTexture(current,NULL,NULL,&w,&h);
     source.w=w/4;
@@ -134,10 +135,10 @@ int max_limit(int a, int max){
   return a;
 }
 
-void draw_roi(Level * map,SDL_Renderer * renderer,int w, int h, int anim, Direction p){
+void draw_roi(Level * map,SDL_Renderer * renderer,int w, int h, int anim, Direction p, Point pPos){
   Block ** roi;
   int i,j;
-  roi=take_roi(map,max_limit(w/BLOCK_SIZE,map->width),max_limit(h/BLOCK_SIZE,map->height));
+  roi=take_roi(map,max_limit(w/BLOCK_SIZE,map->width),max_limit(h/BLOCK_SIZE,map->height),pPos);
   for(i=0;i<max_limit(h/BLOCK_SIZE,map->height);i++){
     for(j=0;j<max_limit(w/BLOCK_SIZE,map->width);j++){
       render_block(&roi[i][j],renderer,BLOCK_SIZE,anim,p);

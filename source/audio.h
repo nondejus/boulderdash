@@ -2,7 +2,7 @@
 #define AUDIO_H
 
 #define STOCK_BPM 150
-#define MELODY_LEN 15
+#define MAX_MELODY_LEN 128
 
 typedef struct{
   int len;
@@ -16,7 +16,8 @@ typedef struct{
   int notePos;
   double speed;
   int active;
-  Note melody[MELODY_LEN];
+  Note melody[MAX_MELODY_LEN];
+  int melodyLen;
 }Sound;
 
 double get_speed(double bpm);

@@ -6,7 +6,7 @@
 #define AMPLITUDE 32
 #define SAMPLE_RATE 44100
 
-#define NOTE_DELAY 3
+#define NOTE_DELAY 2
 
 #define N_C4 261.63
 #define N_CS4 277.18
@@ -22,12 +22,14 @@
 #define N_B4 493.88
 #define N_SILENCE 99999999
 
+
 double get_speed(double bpm){
   return (60.0/bpm)/2;
 }
 
-void init_melody(Sound * sound){
+void melody1(Sound * sound){
   Note * melody = sound->melody;
+  sound->melodyLen=15;
   melody[0].freq=N_A4;
   melody[0].len=2;
   melody[1].freq=N_B4;
@@ -60,6 +62,54 @@ void init_melody(Sound * sound){
   melody[14].len=1;
 }
 
+void melody2(Sound * sound){
+  int i;
+  Note * melody = sound->melody;
+  sound->melodyLen=128;
+  for(i=0;i<128;i++){
+    melody[i].len=1;
+  }
+  for(i=0;i<4;i++){
+    melody[i*8].freq=N_A4/4;
+    melody[i*8+1].freq=N_F4/2;
+    melody[i*8+2].freq=N_A4/2;
+    melody[i*8+3].freq=N_C4;
+    melody[i*8+4].freq=N_A4/4;
+    melody[i*8+5].freq=N_F4/2;
+    melody[i*8+6].freq=N_A4/2;
+    melody[i*8+7].freq=N_D4;
+  }
+  for(i=0;i<4;i++){
+    melody[32+i*8].freq=N_B4/4;
+    melody[32+i*8+1].freq=N_G4/2;
+    melody[32+i*8+2].freq=N_B4/2;
+    melody[32+i*8+3].freq=N_D4;
+    melody[32+i*8+4].freq=N_B4/4;
+    melody[32+i*8+5].freq=N_G4/2;
+    melody[32+i*8+6].freq=N_B4/2;
+    melody[32+i*8+7].freq=N_E4;
+  }
+  for(i=0;i<4;i++){
+    melody[64+i*8].freq=N_D4/2;
+    melody[64+i*8+1].freq=N_AS4/2;
+    melody[64+i*8+2].freq=N_D4;
+    melody[64+i*8+3].freq=N_F4;
+    melody[64+i*8+4].freq=N_D4/2;
+    melody[64+i*8+5].freq=N_AS4/2;
+    melody[64+i*8+6].freq=N_D4;
+    melody[64+i*8+7].freq=N_G4;
+  }
+  for(i=0;i<4;i++){
+    melody[96+i*8].freq=N_FS4/2;
+    melody[96+i*8+1].freq=N_D4;
+    melody[96+i*8+2].freq=N_FS4;
+    melody[96+i*8+3].freq=N_A4;
+    melody[96+i*8+4].freq=N_FS4/2;
+    melody[96+i*8+5].freq=N_D4;
+    melody[96+i*8+6].freq=N_FS4;
+    melody[96+i*8+7].freq=N_B4;
+  }
+}
 void init_sound(Sound * sound){
   sound->sampleFreq = SAMPLE_RATE;
   sound->samplesPerSine = sound->sampleFreq/N_SILENCE;
@@ -67,12 +117,12 @@ void init_sound(Sound * sound){
   sound->notePos = 0;
   sound->active = 0;
   sound->speed = get_speed(STOCK_BPM);
-  init_melody(sound);
+  melody2(sound);
 }
 
 void nextNote(Sound * sound){
   sound->notePos+=1;
-  if(sound->notePos>=MELODY_LEN)sound->notePos=0;
+  if(sound->notePos>=sound->melodyLen)sound->notePos=0;
 }
 
 void sound_update(Sound * sound, double timer,double *soundCounter){

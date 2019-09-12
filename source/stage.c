@@ -77,6 +77,7 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   SDL_Rect timeRect;
   SDL_Rect diamondRect;
 
+  /* setting up audio and sound */
   init_sound(&sound);
 
   soundCounter = sound.speed;
@@ -93,6 +94,9 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   if(want.format != have.format) SDL_LogError(SDL_LOG_CATEGORY_AUDIO, "Failed to get the desired AudioSpec");
   if(device==0) printf("Audio Device Error\n");
 
+  SDL_PauseAudioDevice(device,0);
+
+  /* setting hud coordinates */
   scorePos.x=*width-125;
   scorePos.y=7;
   scoreRect=create_rect_xy(*width-135,3,130,24);
@@ -105,10 +109,10 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
   diamondPos.y=7;
   diamondRect=create_rect_xy(10,3,60,24);
 
+  /* preparing map */
   set_block(map,playerPos,player);
   set_block(map,doorPos,border);
 
-  SDL_PauseAudioDevice(device,0);
 
   while(state==PAUSED || state==RUNNING){
 
@@ -117,10 +121,15 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
     /* Events */
     event_handler(&e,&keys,width,height,window,&state);
     take_move_direction(&keys,&moveDirection);
-    playerAnim=moveDirection;
+    if(state==RUNNING){
+      // printf("Keys: l:%d r:%d u:%d d:%d\n", keys.l, keys.r, keys.u, keys.d);
+      // printf("Move: %d\n", moveDirection);
+      playerAnim=moveDirection;
+    }
 
     /* Game Update */
     if(timer>updateCounter){
+
       if(state==RUNNING){
         state = game_update(level,playerPos,score);
         if(state==RUNNING)
@@ -160,10 +169,9 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
     }
 
     /* Screen Update */
-    if(state==GAMEOVER) SDL_Delay(500);
 
     SDL_RenderClear(renderer);
-    draw_roi(level,renderer,*width,*height,currentAnim,playerAnim);
+    draw_roi(level,renderer,*width,*height,currentAnim,playerAnim,playerPos);
     SDL_RenderCopy(renderer,tBack,NULL,&scoreRect);
     render_number(renderer,*score,scorePos,18,6);
     SDL_RenderCopy(renderer,tBack,NULL,&timeRect);
@@ -172,9 +180,13 @@ int game(Level * level, int * width, int * height, int health, int * score, SDL_
     render_number(renderer,level->diamondsRequired-diamonds>0?level->diamondsRequired-diamonds:0,diamondPos,18,2);
     SDL_RenderPresent(renderer);
 
-    frameEnd = SDL_GetPerformanceCounter();
+    if(state==GAMEOVER) SDL_Delay(1000);
 
-    timer += (double)(frameEnd - frameStart)/(double)SDL_GetPerformanceFrequency();
+    /* time management */
+    if(state==RUNNING){
+      frameEnd = SDL_GetPerformanceCounter();
+      timer += (double)(frameEnd - frameStart)/(double)SDL_GetPerformanceFrequency();
+    }
   }
   SDL_CloseAudioDevice(device);
   if(state==GAMEOVER) return -1;
@@ -313,6 +325,7 @@ int player_update(Block ** map, Direction moveDir, Point * playerPos, int *diaCo
     case rock:
       if(moveDir==_left || moveDir==_right){
         if(get_side(map,newPos,moveDir)==empty){
+          map[newPos.y][newPos.x].active=1;
           block_move(map,newPos,moveDir);
           set_block(map,newPos,player);
           set_block(map,*playerPos,empty);
@@ -365,7 +378,7 @@ void event_handler(SDL_Event *e, KeyStates * keys, int * win_w, int * win_h,SDL_
 }
 void take_move_direction(KeyStates * keys, Direction * moveDir){
   if(keys->u == keys->d){
-    if(keys->l == keys->r) *moveDir=_none;
+    if(keys->l == keys->r) return;
     else if(keys->l == 1) *moveDir=_left;
     else *moveDir=_right;
   }

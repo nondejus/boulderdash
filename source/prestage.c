@@ -34,7 +34,7 @@ void prestage(SDL_Window * window, SDL_Renderer * renderer,int score, int level,
 
     for(i=1;i<=health;i++){
       heartRect=create_rect_xy(winW-7-20*i,34,20,20);
-      SDL_RenderCopy(renderer,tHeart,NULL,&heartRect);
+      SDL_RenderCopy(renderer,tArrow,NULL,&heartRect);
     }
 
     SDL_RenderCopy(renderer,tBack,NULL,&scoreRect);

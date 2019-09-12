@@ -13,6 +13,7 @@ SDL_Texture * tDirt;
 SDL_Texture * tMonster;
 SDL_Texture * tPlayer;
 SDL_Texture * tRock;
+SDL_Texture * tRock2;
 SDL_Texture * tSpider;
 SDL_Texture * tWater;
 SDL_Texture * tDoor;
