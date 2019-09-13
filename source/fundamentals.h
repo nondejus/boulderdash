@@ -1,6 +1,6 @@
 #ifndef FUNDA_H
 #define FUNDA_H
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 
 #define ALLOC(p,c) (p*)malloc(sizeof(p)*c)
 

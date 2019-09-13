@@ -1,6 +1,6 @@
 #ifndef RENDER_H
 #define RENDER_H
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include <stdio.h>
 #include "fundamentals.h"
 

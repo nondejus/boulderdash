@@ -1,6 +1,6 @@
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
+#include "../sdl/include/SDL.h"
+#include "../sdl/include/SDL_timer.h"
 #include "fundamentals.h"
 #include "stage.h"
 #include "mobs.h"

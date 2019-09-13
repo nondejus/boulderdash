@@ -1,6 +1,6 @@
 #ifndef MOBS_H
 #define MOBS_H
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include "fundamentals.h"
 int monster_move(Block **map, Point m, Point p);
 int spider_move(Block **map, Point s);

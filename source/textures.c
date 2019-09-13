@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include "textures.h"
 void load_textures(SDL_Renderer * renderer){
   SDL_Surface * sSave = NULL;

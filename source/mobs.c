@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include "mobs.h"
 #include "fundamentals.h"
 #include "blocks.h"

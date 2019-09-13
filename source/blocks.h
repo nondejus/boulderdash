@@ -1,6 +1,6 @@
 #ifndef BLOCK_H
 #define BLOCK_H
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include "fundamentals.h"
 void activate(Block ** map, Point pos);
 void deactivate(Block ** map, Point pos);

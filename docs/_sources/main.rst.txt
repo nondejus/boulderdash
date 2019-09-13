@@ -1,0 +1,12 @@
+Main
+====
+
+main()
+######
+
+This function contains the main loop, sdl initializations, health and score.
+
+Variables
+*********
+*window_w* - Window width
+*window_h* - Window height

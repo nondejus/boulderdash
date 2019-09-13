@@ -1,5 +1,5 @@
 
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include <stdio.h>
 #include "map.h"
 #include "fundamentals.h"
@@ -8,7 +8,7 @@ int find_player(Level * level, Point * p);
 
 Level level_picker(int i){
   char name[64];
-  sprintf(name,"level%d.bin",i);
+  sprintf(name,"levels/level%d.bin",i);
   return load_from_file(name);
 }
 

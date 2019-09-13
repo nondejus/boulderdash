@@ -1,6 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
-#include<SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include "fundamentals.h"
 Level level_picker(int i);
 Block ** take_roi(Level * map, int width, int height, Point p);

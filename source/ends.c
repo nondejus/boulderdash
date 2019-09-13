@@ -1,5 +1,5 @@
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL_timer.h"
+#include "../sdl/include/SDL.h"
 #include "ends.h"
 #include "render.h"
 #include "textures.h"

@@ -1,6 +1,6 @@
 #ifndef INTRO_H
 #define INTRO_H
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 
 void intro(SDL_Window * window,SDL_Renderer * renderer);
 

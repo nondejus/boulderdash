@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include "../sdl/include/SDL.h"
 #include "intro.h"
 #include "textures.h"
 #include "render.h"

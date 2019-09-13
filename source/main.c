@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
+#include "../sdl/include/SDL.h"
+#include "../sdl/include/SDL_timer.h"
 #include "textures.h"
 #include "intro.h"
 #include "fundamentals.h"
@@ -12,7 +12,7 @@ int main(){
   int window_w = 600, window_h = 600;
   SDL_Window *window = NULL;
   SDL_Renderer * renderer = NULL;
-  int currentLevel = 10;
+  int currentLevel = 1;
   int health=5;
   int score = 0;
   Level level;
