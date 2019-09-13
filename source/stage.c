@@ -211,6 +211,21 @@ int game_update(Level * level,Point playerPos, int * score){
   int mapH = level->height;
   int count=0;
 
+  /* Spiders' Update */
+  find_blocks(map, &spiders, &count, spider, mapW,mapH);
+  for (i = 0; i < count; i++){
+    if(spider_move(map, spiders[i])==-1) return GAMEOVER;
+  }
+  if(spiders!=NULL) free(spiders);
+
+
+  /* Monsters' Update */
+  find_blocks(map, &monsters, &count, monster, mapW,mapH);
+  for (i = 0; i < count; i++){
+    if(monster_move(map, monsters[i],playerPos)==-1) return GAMEOVER;
+  }
+  if(monsters!=NULL) free(monsters);
+
   /* Rocks' Update */
   find_blocks(map, &rocks, &count, rock, mapW,mapH);
   for (i = 0; i < count; i++){
@@ -250,23 +265,6 @@ int game_update(Level * level,Point playerPos, int * score){
     }
   }
   if(rocks!=NULL) free(rocks);
-
-
-  /* Spiders' Update */
-  find_blocks(map, &spiders, &count, spider, mapW,mapH);
-  for (i = 0; i < count; i++){
-    if(spider_move(map, spiders[i])==-1) return GAMEOVER;
-  }
-  if(spiders!=NULL) free(spiders);
-
-
-  /* Monsters' Update */
-  find_blocks(map, &monsters, &count, monster, mapW,mapH);
-  for (i = 0; i < count; i++){
-    if(monster_move(map, monsters[i],playerPos)==-1) return GAMEOVER;
-  }
-  if(monsters!=NULL) free(monsters);
-
 
   /* Diamonds' Update */
   find_blocks(map, &diamonds, &count, diamond, mapW,mapH);

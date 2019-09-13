@@ -30,7 +30,7 @@ Guide to Level Editor
 | extension and than a window will pop up.
 |
 | It works like ms paint. You pick a brush from bottom than paint.
-| After you done your work press save, anything won't on this window, check the terminal.
+| After you done your work press save and check the terminal.
 | Enter how many diamond is required for pass the level.
 | Enter how much time do player got.
 | Enter water spread rate, if you enter x it means water will spread every x second.

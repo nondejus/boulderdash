@@ -436,7 +436,6 @@ int main(){
         else if(mousePos.x<BOTTOM_BLOCK_SIZE*9) cursor = water;
         else if(mousePos.x<BOTTOM_BLOCK_SIZE*10) cursor = door;
         else {
-          save(&level);
           running=0;
         }
       }
@@ -459,8 +458,12 @@ int main(){
     render_block(&selected,renderer,BOTTOM_BLOCK_SIZE/2,selectedPos,zeroPoint);
     SDL_RenderPresent(renderer);
   }
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow( window );
+  SDL_Quit( );
+  save(&level);
   free_textures();
-
+  return 0;
 }
 
 /*
