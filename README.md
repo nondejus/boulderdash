@@ -1,6 +1,6 @@
 Welcome to Boulder Dash's documentation
 =======================================
-
+![](https://github.com/nondejus/boulderdash/blob/master/assets/Boulderdash_Animation.gif)
 Boulder dash is a well-known video game. In this project, i replicated the game.
 
 This project contains two main program
